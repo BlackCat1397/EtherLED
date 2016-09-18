@@ -933,7 +933,6 @@
  * During \ref SOCK_ESTABLISHED, DATA packet can be transferred using SEND or RECV command.
  */
 #define SOCK_ESTABLISHED    0x17
-
 /**
  * @brief Closing state
  * @details These indicate Socket n is closing.\n

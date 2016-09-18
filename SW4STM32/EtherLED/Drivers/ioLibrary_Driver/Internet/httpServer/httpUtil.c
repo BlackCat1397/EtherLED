@@ -19,7 +19,8 @@ uint8_t http_get_cgi_handler(uint8_t * uri_name, uint8_t * buf, uint32_t * file_
 	uint8_t ret = HTTP_OK;
 	uint16_t len = 0;
 
-	if(predefined_get_cgi_processor(uri_name, buf, &len))
+	//if(predefined_get_cgi_processor(uri_name, buf, &len))
+	if (1)
 	{
 		;
 	}
@@ -44,7 +45,8 @@ uint8_t http_post_cgi_handler(uint8_t * uri_name, st_http_request * p_http_reque
 	uint16_t len = 0;
 	uint8_t val = 0;
 
-	if(predefined_set_cgi_processor(uri_name, p_http_request->URI, buf, &len))
+	//if(predefined_set_cgi_processor(uri_name, p_http_request->URI, buf, &len))
+	if(1)
 	{
 		;
 	}

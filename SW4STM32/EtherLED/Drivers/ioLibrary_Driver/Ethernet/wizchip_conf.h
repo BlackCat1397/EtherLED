@@ -94,6 +94,7 @@
 //A20150401 : Indclude W5100.h file   
    #include "W5100/w5100.h"
 
+
 #elif (_WIZCHIP_ == 5200)
    #define _WIZCHIP_ID_                "W5200\0"
 /**

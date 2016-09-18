@@ -12,8 +12,6 @@ RM := rm -rf
 -include Drivers/ioLibrary_Driver/Internet/TFTP/subdir.mk
 -include Drivers/ioLibrary_Driver/Internet/SNTP/subdir.mk
 -include Drivers/ioLibrary_Driver/Internet/SNMP/subdir.mk
--include Drivers/ioLibrary_Driver/Internet/FTPServer/subdir.mk
--include Drivers/ioLibrary_Driver/Internet/FTPClient/subdir.mk
 -include Drivers/ioLibrary_Driver/Internet/DNS/subdir.mk
 -include Drivers/ioLibrary_Driver/Internet/DHCP/subdir.mk
 -include Drivers/ioLibrary_Driver/Ethernet/W5100/subdir.mk

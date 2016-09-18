@@ -27,8 +27,6 @@
 "Drivers/ioLibrary_Driver/Ethernet/wizchip_conf.o"
 "Drivers/ioLibrary_Driver/Internet/DHCP/dhcp.o"
 "Drivers/ioLibrary_Driver/Internet/DNS/dns.o"
-"Drivers/ioLibrary_Driver/Internet/FTPClient/ftpc.o"
-"Drivers/ioLibrary_Driver/Internet/FTPServer/ftpd.o"
 "Drivers/ioLibrary_Driver/Internet/SNMP/snmp.o"
 "Drivers/ioLibrary_Driver/Internet/SNMP/snmp_custom.o"
 "Drivers/ioLibrary_Driver/Internet/SNTP/sntp.o"

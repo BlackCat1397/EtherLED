@@ -19,7 +19,7 @@ struct Command Command;
 
 void ftpc_init(uint8_t * src_ip)
 {
-	ftpc.dsock_mode = ACTIVE_MODE;
+//	ftpc.dsock_mode = ACTIVE_MODE;
 
 	local_ip.cVal[0] = src_ip[0];
 	local_ip.cVal[1] = src_ip[1];
@@ -490,12 +490,12 @@ char proc_ftpc(char * buf)
 			printf("\r\nUser logged in, proceed\r\n");
 
 			sprintf(dat,"TYPE %c\r\n", TransferAscii);
-			ftpc.type = ASCII_TYPE;
+			//ftpc.type = ASCII_TYPE;
 			send(CTRL_SOCK, (uint8_t *)dat, strlen(dat));
 			break;
 		case R_200:
-			if((ftpc.dsock_mode==ACTIVE_MODE)&&gModeActivePassiveflag){
-				ftpc.dsock_state = DATASOCK_READY;
+	//		if((ftpc.dsock_mode==ACTIVE_MODE)&&gModeActivePassiveflag){
+	//			ftpc.dsock_state = DATASOCK_READY;
 				gModeActivePassiveflag = 0;
 			}
 			else{
@@ -533,8 +533,8 @@ char proc_ftpc(char * buf)
 			}
 			else{
 				printf("Go Open Data Sock...\r\n ");
-				ftpc.dsock_mode = PASSIVE_MODE;
-				ftpc.dsock_state = DATASOCK_READY;
+			//	ftpc.dsock_mode = PASSIVE_MODE;
+			//	ftpc.dsock_state = DATASOCK_READY;
 			}
 			break;
 		default:

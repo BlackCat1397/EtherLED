@@ -118,80 +118,61 @@ int8_t socket(uint8_t sn, uint8_t protocol, uint16_t port, uint8_t flag)
             getSIPR((uint8_t*)&taddr);
             if(taddr == 0) return SOCKERR_SOCKINIT;
          }
+         break;
       case Sn_MR_UDP :
       case Sn_MR_MACRAW :
-         break;
-   #if ( _WIZCHIP_ < 5200 )
       case Sn_MR_IPRAW :
       case Sn_MR_PPPoE :
          break;
-   #endif
       default :
          return SOCKERR_SOCKMODE;
 	}
 	//M20150601 : For SF_TCP_ALIGN & W5300
 	//if((flag & 0x06) != 0) return SOCKERR_SOCKFLAG;
 	if((flag & 0x04) != 0) return SOCKERR_SOCKFLAG;
-#if _WIZCHIP_ == 5200
-   if(flag & 0x10) return SOCKERR_SOCKFLAG;
-#endif
+
 	   
 	if(flag != 0)
 	{
-   	switch(protocol)
-   	{
-   	   case Sn_MR_TCP:
-   		  //M20150601 :  For SF_TCP_ALIGN & W5300
-          #if _WIZCHIP_ == 5300
-   		     if((flag & (SF_TCP_NODELAY|SF_IO_NONBLOCK|SF_TCP_ALIGN))==0) return SOCKERR_SOCKFLAG;
-          #else
-   		     if((flag & (SF_TCP_NODELAY|SF_IO_NONBLOCK))==0) return SOCKERR_SOCKFLAG;
-          #endif
-
-   	      break;
-   	   case Sn_MR_UDP:
-   	      if(flag & SF_IGMP_VER2)
-   	      {
-   	         if((flag & SF_MULTI_ENABLE)==0) return SOCKERR_SOCKFLAG;
-   	      }
-   	      #if _WIZCHIP_ == 5500
-      	      if(flag & SF_UNI_BLOCK)
-      	      {
-      	         if((flag & SF_MULTI_ENABLE) == 0) return SOCKERR_SOCKFLAG;
-      	      }
-   	      #endif
-   	      break;
-   	   default:
-   	      break;
-   	}
-   }
+		switch(protocol)
+		{
+			case Sn_MR_TCP:
+				if((flag & (SF_TCP_NODELAY|SF_IO_NONBLOCK)) == 0)
+					return SOCKERR_SOCKFLAG;
+				break;
+			case Sn_MR_UDP:
+				if(flag & SF_IGMP_VER2)
+					if((flag & SF_MULTI_ENABLE) == 0)
+						return SOCKERR_SOCKFLAG;
+				break;
+			default:
+				break;
+		}
+	}
 	close(sn);
-	//M20150601
-	#if _WIZCHIP_ == 5300
-	   setSn_MR(sn, ((uint16_t)(protocol | (flag & 0xF0))) | (((uint16_t)(flag & 0x02)) << 7) );
-    #else
-	   setSn_MR(sn, (protocol | (flag & 0xF0)));
-    #endif
+
+	setSn_MR(sn, (protocol | (flag & 0xF0)));
+
 	if(!port)
 	{
 	   port = sock_any_port++;
 	   if(sock_any_port == 0xFFF0) sock_any_port = SOCK_ANY_PORT_NUM;
 	}
-   setSn_PORT(sn,port);	
-   setSn_CR(sn,Sn_CR_OPEN);
-   while(getSn_CR(sn));
-   //A20150401 : For release the previous sock_io_mode
-   sock_io_mode &= ~(1 <<sn);
-   //
+    setSn_PORT(sn,port);
+    setSn_CR(sn,Sn_CR_OPEN);
+    while(getSn_CR(sn));
+    //A20150401 : For release the previous sock_io_mode
+    sock_io_mode &= ~(1 <<sn);
+    //
 	sock_io_mode |= ((flag & SF_IO_NONBLOCK) << sn);   
-   sock_is_sending &= ~(1<<sn);
-   sock_remained_size[sn] = 0;
-   //M20150601 : repalce 0 with PACK_COMPLETED
-   //sock_pack_info[sn] = 0;
-   sock_pack_info[sn] = PACK_COMPLETED;
-   //
-   while(getSn_SR(sn) == SOCK_CLOSED);
-   return (int8_t)sn;
+    sock_is_sending &= ~(1<<sn);
+    sock_remained_size[sn] = 0;
+    //M20150601 : repalce 0 with PACK_COMPLETED
+    //sock_pack_info[sn] = 0;
+    sock_pack_info[sn] = PACK_COMPLETED;
+    //
+    while(getSn_SR(sn) == SOCK_CLOSED);
+    return (int8_t)sn;
 }	   
 
 int8_t close(uint8_t sn)
@@ -385,12 +366,7 @@ int32_t recv(uint8_t sn, uint8_t * buf, uint16_t len)
 {
    uint8_t  tmp = 0;
    uint16_t recvsize = 0;
-//A20150601 : For integarating with W5300
-#if   _WIZCHIP_ == 5300
-   uint8_t head[2];
-   uint16_t mr;
-#endif
-//
+
    CHECK_SOCKNUM();
    CHECK_SOCKMODE(Sn_MR_TCP);
    CHECK_SOCKDATA();
@@ -398,13 +374,6 @@ int32_t recv(uint8_t sn, uint8_t * buf, uint16_t len)
    recvsize = getSn_RxMAX(sn);
    if(recvsize < len) len = recvsize;
       
-//A20150601 : For Integrating with W5300
-#if _WIZCHIP_ == 5300
-   //sock_pack_info[sn] = PACK_COMPLETED;    // for clear      
-   if(sock_remained_size[sn] == 0)
-   {
-#endif
-//
       while(1)
       {
          recvsize = getSn_RX_RSR(sn);
@@ -429,9 +398,6 @@ int32_t recv(uint8_t sn, uint8_t * buf, uint16_t len)
          if((sock_io_mode & (1<<sn)) && (recvsize == 0)) return SOCK_BUSY;
          if(recvsize != 0) break;
       };
-#if _WIZCHIP_ == 5300
-   }
-#endif
 
 //A20150601 : For integrating with W5300
 #if _WIZCHIP_ == 5300

@@ -34,6 +34,7 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.2134939499" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="fr.ac6.managedbuild.gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1035640923" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.821593655" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Drivers/ioLibrary_Driver/Internet}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Drivers/ioLibrary_Driver/Ethernet}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Drivers/ioLibrary_Driver/Ethernet/W5100}&quot;"/>
 									<listOptionValue builtIn="false" value="../../../Inc"/>
@@ -79,7 +80,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="Drivers/ioLibrary_Driver/Ethernet/W5500|Drivers/ioLibrary_Driver/Ethernet/W5300|Drivers/ioLibrary_Driver/Ethernet/W5200" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Drivers/Arduino_Libs/SPI|Drivers/Arduino_Libs/Ethernet_STM|Drivers/ioLibrary_Driver/Ethernet/W5200|Drivers/ioLibrary_Driver/Internet/FTPServer|Drivers/ioLibrary_Driver/Internet/FTPClient|Drivers/ioLibrary_Driver/Ethernet/W5500|Drivers/ioLibrary_Driver/Ethernet/W5300" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
